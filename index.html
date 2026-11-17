@@ -105,7 +105,7 @@ const FEJEZET=[
   {id:'b4',f:17017,tip:'spektrum',v:'HUROK',n:'Hurok',ut:'„HUROK.” Az időben is lehet hurok: Novikov szerint ha valami visszaér a múltba, csak úgy teheti, hogy ne mondjon ellent önmagának. Ez az üzenet már mindig is meg volt írva.'}]},
  {id:'III',n:'III. Visszhangok',d:'Hat töredék, hat világból. Ha jártál abban a világban, tisztán szól; ha nem, csak a zajból szűrheted ki.',adas:[
   {id:'c1',f:21957,tip:'morze',v:'NE',kell:'lo:esc',vilag:'Kísérleti Lőtér',hint:'a Lőtéren egy szondát szökési sebességre gyorsítasz',n:'A szonda jele',ut:'„NE.” A Lőtér holdszondája sugározza – az, amelyik egy fekete lyuk felé tart.'},
-  {id:'c2',f:10976,tip:'szam',v:'ADD',kell:'r3:feketelyuk',vilag:'Raktár 3D',hint:'a Raktár 3D pohármosójában belépsz a fekete lyukba',n:'976 tárhely',ut:'„ADD.” A frekvencia: 10 976 kHz – ahány tárhely a raktárban van, és még egy tízes előtte. A jel egy pohármosó lefolyójából szól.'},
+  {id:'c2',f:10976,tip:'szam',v:'ADD',kell:['r3:jel','r3:feketelyuk'],vilag:'Raktár 3D',hint:'a Raktár 3D-ben éjjel, játék közben megtalálod a villogó tárhelycímkét (vagy belépsz a pohármosó fekete lyukába)',n:'976 tárhely',ut:'„ADD.” A frekvencia: 10 976 kHz – ahány tárhely a raktárban van, és még egy tízes előtte. A jelet éjjel egy tárhelycímke villogja Morse-ban: rövid–hosszú, hosszú–rövid–rövid, hosszú–rövid–rövid.'},
   {id:'c3',f:4030,tip:'caesar',k:7,v:'FEL',kell:'eg:sziv',vilag:'Égtorony',hint:'az Égtoronyban legyőzöd a Szívet',n:'A torony teteje',ut:'„FEL.” A torony tetejéről, ahol a Szív megrepedt. Felfelé.'},
   {id:'c4',f:8888,tip:'spektrum',v:'MEG',kell:'mo:csillag',vilag:'Mézország',hint:'Mézországban megépíted a Csillagméhest',n:'Méhzúgás',ut:'„MEG.” A csillagméhek szárnyának zúgása hordozza – ők repülnek a fekete lyuk felé.'},
   {id:'c5',f:6371,tip:'morze',v:'ERI',kell:'me:kozep',vilag:'Mélység',hint:'a Mélységben eléred a Föld középpontját',n:'A Föld közepe',ut:'„ÉRI.” A frekvencia a Föld sugara: 6371. A jel a középpontból jön, ahol fény áramlik kifelé.'},
@@ -121,7 +121,7 @@ try{const o=JSON.parse(localStorage.getItem(KEY));if(o&&o.kesz)S={...S,...o}}cat
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const nyitott=a=>{const fej=a.fej||(FEJEZET.find(f=>f.adas.some(x=>x.id===a.id))||{}).id,fi=FEJEZET.findIndex(f=>f.id===fej);if(fi<0)return true;if(fi===0)return true;const elozo=FEJEZET[fi-1];
   if(fej==='IV')return FEJEZET[2].adas.every(x=>S.kesz[x.id]);return elozo.adas.every(x=>S.kesz[x.id])};
-const tiszta=a=>!a.kell||univ.has(a.kell);
+const tiszta=a=>!a.kell||[].concat(a.kell).some(k=>univ.has(k));
 
 // ---- heti adás: mindenkinek ugyanaz (a hét kulcsából sorsolva), az idő számít ----
 // ---- Multiverzum-bajnokság: heti rangsor más játékosokkal ----
