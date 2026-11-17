@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Jeltörő</title>
+<meta name="description" content="Lehallgatóállomás 1957-ből: hangold be, hallgasd, törd fel az adásokat. Az egyik jel a jövőből jön.">
+<style>
+:root{--bg:#050a07;--panel:#0b140e;--line:#1d3324;--ink:#d8f5dc;--dim:#7fa58a;--ph:#5dff8a;--amb:#ffc75a;--bad:#ff6a5a;--f:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--m:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--f);-webkit-tap-highlight-color:transparent}
+body{padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 30px);background:radial-gradient(120% 60% at 50% 0%,#0f2416 0%,var(--bg) 65%) fixed}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1{font:800 34px/1 var(--m);letter-spacing:2px;margin:4px 0 0;color:var(--ph);text-shadow:0 0 18px #5dff8a66}
+h2{font:800 18px var(--f);margin:0 0 6px}h3{font:700 15px var(--f);margin:0}
+p{margin:6px 0}.dim{color:var(--dim)}.kicsi{font-size:12.5px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.chip{font:700 12px var(--m);padding:3px 8px;border-radius:9px;border:1px solid var(--line);color:var(--amb);white-space:nowrap}
+button{font:inherit;cursor:pointer;color:var(--ink)}
+.tabs{display:flex;gap:6px}.tabs button{flex:1;padding:8px 4px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--dim);font-weight:700;font-size:13px}
+.tabs button[aria-pressed=true]{color:var(--ink);border-color:var(--ph);background:#5dff8a12}
+.vevo{background:linear-gradient(180deg,#0e1a12,#08100b);border:1px solid #2a4a33;border-radius:16px;padding:12px;box-shadow:inset 0 0 40px #000a}
+.frek{font:800 40px var(--m);color:var(--amb);text-shadow:0 0 14px #ffc75a55;letter-spacing:1px;text-align:center}
+.frek small{font-size:16px;color:var(--dim)}
+.jel{height:8px;border-radius:4px;background:#ffffff14;overflow:hidden;margin:6px 0}.jel i{display:block;height:100%;background:linear-gradient(90deg,#2aa64a,#5dff8a,#ffc75a);border-radius:4px;transition:width .15s}
+#wf{width:100%;height:150px;display:block;border-radius:10px;background:#000;image-rendering:pixelated;touch-action:none}
+input[type=range]{width:100%;accent-color:var(--amb);height:34px}
+.fine{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.fine button{padding:9px 0;border-radius:10px;border:1px solid var(--line);background:#ffffff08;font:700 13px var(--m)}
+.lista{display:flex;flex-direction:column;gap:6px}
+.adas{display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:center;padding:9px 10px;border:1px solid var(--line);border-radius:11px;background:none;text-align:left;width:100%}
+.adas b{font:700 14px var(--m);color:var(--amb)}.adas span.t{font-size:13px}.adas .st{font:700 12px var(--m)}
+.adas[aria-current=true]{border-color:var(--ph);background:#5dff8a10}
+.adas.zar{opacity:.45}
+.dekod{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px}
+.szalag{font:700 22px var(--m);letter-spacing:3px;color:var(--ph);min-height:30px;word-break:break-all}
+.cipher{font:800 22px var(--m);letter-spacing:4px;color:var(--amb);text-align:center;margin:8px 0;word-break:break-word}
+.tarcsa{display:flex;align-items:center;justify-content:center;gap:12px}.tarcsa button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:#ffffff0a;font:800 20px var(--m)}
+.valasz{display:flex;gap:6px;margin-top:8px}.valasz input{flex:1;min-width:0;font:700 18px var(--m);letter-spacing:2px;text-transform:uppercase;padding:10px;border-radius:10px;border:1px solid var(--line);background:#000;color:var(--ph)}
+.valasz button,.gomb{padding:10px 14px;border-radius:10px;border:1px solid var(--ph);background:#5dff8a18;font-weight:800}
+.tabla{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:3px 8px;font:12px var(--m);color:var(--dim);margin-top:8px}
+.tabla b{color:var(--ink)}
+.napl{display:flex;flex-direction:column;gap:8px}.napl div{border-left:2px solid var(--ph);padding-left:10px}
+.vtab{width:100%;border-collapse:collapse;font-size:13px}.vtab td,.vtab th{padding:5px 3px;border-bottom:1px solid var(--line);text-align:left}.vtab th{color:var(--dim)}.vtab tr.en td{color:var(--amb);font-weight:700}.vtab td.sz{text-align:right;font-family:var(--m)}
+.fent{font-size:11px;padding:1px 6px;border-radius:8px;background:#5dff8a22;color:var(--ph);margin-left:4px}
+a.kapu{display:inline-block;margin:6px 8px 0 0;padding:8px 12px;border-radius:10px;border:1px solid #9b7bff;color:#cbb9ff;text-decoration:none;font-weight:700}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 16px);transform:translateX(-50%);max-width:92vw;background:#0b140ef0;border:1px solid var(--ph);color:var(--ink);padding:10px 14px;border-radius:12px;font-weight:600;font-size:14px;z-index:9;transition:opacity .4s}
+.vegso{font:800 26px/1.3 var(--m);color:#fff;text-align:center;text-shadow:0 0 20px #5dff8a;letter-spacing:2px;margin:10px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="row"><h1>JELTÖRŐ</h1><button class="chip" id="hangGomb" style="background:none">🔊 hang</button></div>
+  <p class="dim" style="margin-top:-2px">Lehallgatóállomás, 1957. Hangold be, hallgasd, törd fel. Az egyik adás a jövőből jön – és ismerős a hangja.</p>
+  <div class="vevo">
+    <div class="frek" id="frek">7,000<small> MHz</small></div>
+    <div class="jel" aria-label="jelerősség"><i id="jelI" style="width:0"></i></div>
+    <canvas id="wf" width="320" height="150" aria-label="vízesés-spektrum: vízszintesen a frekvencia, lefelé az idő"></canvas>
+    <input type="range" id="csuszka" min="1000" max="30000" step="1" value="7000" aria-label="frekvencia">
+    <div class="fine"><button data-df="-100">−0,1</button><button data-df="-10">−0,01</button><button data-df="-1">−0,001</button><button data-df="1">+0,001</button><button data-df="10">+0,01</button><button data-df="100">+0,1</button></div>
+    <div id="dekod"></div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div id="lap"></div>
+</div>
+<div class="toast" id="toast" style="opacity:0"></div>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>String(s||'').toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Z0-9 ]/g,'').replace(/\s+/g,' ').trim();
+const fmtF=k=>(k/1000).toLocaleString('hu-HU',{minimumFractionDigits:3,maximumFractionDigits:3});
+const ido=ms=>{const s=Math.round(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+
+// ---- közös napló a többi játékkal ----
+const UNIV_KEY='univerzum-naplo';
+const univ={get(){try{return JSON.parse(localStorage.getItem(UNIV_KEY))||{}}catch(_){return {}}},has(k){return !!this.get()[k]},
+  set(k){const n=this.get();if(n[k])return false;n[k]=Date.now();try{localStorage.setItem(UNIV_KEY,JSON.stringify(n))}catch(_){}return true}};
+univ.set('jt:jart');
+function univBeagyazva(){try{return window.parent!==window&&window.parent.location.origin===location.origin}catch(_){return false}}
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href*="Esemenyhorizont"]');if(a&&univBeagyazva()){e.preventDefault();window.parent.postMessage({type:'univ-vissza',from:'jeltoro'},location.origin)}});
+
+// ---- Morse ----
+const MORSE={A:'.-',B:'-...',C:'-.-.',D:'-..',E:'.',F:'..-.',G:'--.',H:'....',I:'..',J:'.---',K:'-.-',L:'.-..',M:'--',N:'-.',O:'---',P:'.--.',Q:'--.-',R:'.-.',S:'...',T:'-',U:'..-',V:'...-',W:'.--',X:'-..-',Y:'-.--',Z:'--..',
+  '0':'-----','1':'.----','2':'..---','3':'...--','4':'....-','5':'.....','6':'-....','7':'--...','8':'---..','9':'----.'};
+const ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const caesar=(s,k)=>s.replace(/[A-Z]/g,c=>ABC[(ABC.indexOf(c)+k+26)%26]);
+const szamkod=s=>s.split('').map(c=>c===' '?'/':String(ABC.indexOf(c)+1).padStart(2,'0')).join(' ');
+
+// ---- az adások ----
+// tip: morze | caesar | szam | spektrum | zajos (nagyon gyenge spektrum, finom hangolás kell)
+// v: válasz (ékezet nélkül), f: frekvencia (kHz), tol: hangolási tűrés (kHz), k: Caesar-eltolás
+// kell: a közös napló kulcsa – ha megvan, az adás tisztán szól; ha nincs, csak zajosan fogható
+const FEJEZET=[
+ {id:'I',n:'I. Az állomás',d:'A vevő bemelegítése. Négy adás, négyféle kódolás.',adas:[
+  {id:'a1',f:7050,tip:'morze',v:'HALLO',n:'Próbaadás',ut:'„HALLO.” A vevő működik. A naplóban az előző kezelő ceruzás bejegyzése: „1957. október 4. Ma este megszólalt az ég.”'},
+  {id:'a2',f:9410,tip:'caesar',k:3,v:'A HOLD NEM MESSZE',n:'Eltolt betűk',ut:'„A Hold nem messze.” Valaki eltolta az ábécét hárommal – Julius Caesar is így írt a hadvezéreinek.'},
+  {id:'a3',f:5115,tip:'szam',v:'KAPU',n:'Számállomás',ut:'„KAPU.” A hidegháborúban a számállomások így szóltak a kémeikhez: egy női hang számokat olvasott fel, a jelentést csak a kódkönyv birtokosa értette.'},
+  {id:'a4',f:11880,tip:'spektrum',v:'1957',n:'Kép a zajban',ut:'„1957.” A vízesés-spektrumba valaki szöveget rajzolt: nem hallani kell, hanem látni. A kezelő megjegyzése: „Ez nem a mi évünk. Ez a mostani.”'}]},
+ {id:'II',n:'II. A furcsa jel',d:'Egy adás, amely nem lehetne itt. A hangja olyan, mintha a kezelő saját hangja volna.',adas:[
+  {id:'b1',f:14230,tip:'morze',v:'MAJD',n:'Válasz a semmiből',ut:'„MAJD.” A jel egy rakétakilövő-telep irányából jön, de ott senki nem ad. A lőtéren egy szonda épp most hagyta el a Föld környezetét.'},
+  {id:'b2',f:6660,tip:'caesar',k:11,v:'NEM VAGY EGYEDUL',n:'Tizenegy lépés',ut:'„Nem vagy egyedül.” Az eltolás tizenegy – annyi, ahány éve a kezelő ezen az állomáson szolgál. Ezt rajta kívül senki nem tudhatja.'},
+  {id:'b3',f:3333,tip:'szam',v:'TUKOR',n:'Tükör',ut:'„TÜKÖR.” A számok fordított sorrendben is ugyanazt adják. A kezelő felírja a falra: „Ki ad, aki én vagyok?”'},
+  {id:'b4',f:17017,tip:'spektrum',v:'HUROK',n:'Hurok',ut:'„HUROK.” Az időben is lehet hurok: Novikov szerint ha valami visszaér a múltba, csak úgy teheti, hogy ne mondjon ellent önmagának. Ez az üzenet már mindig is meg volt írva.'}]},
+ {id:'III',n:'III. Visszhangok',d:'Hat töredék, hat világból. Ha jártál abban a világban, tisztán szól; ha nem, csak a zajból szűrheted ki.',adas:[
+  {id:'c1',f:21957,tip:'morze',v:'NE',kell:'lo:esc',vilag:'Kísérleti Lőtér',hint:'a Lőtéren egy szondát szökési sebességre gyorsítasz',n:'A szonda jele',ut:'„NE.” A Lőtér holdszondája sugározza – az, amelyik egy fekete lyuk felé tart.'},
+  {id:'c2',f:10976,tip:'szam',v:'ADD',kell:'r3:feketelyuk',vilag:'Raktár 3D',hint:'a Raktár 3D pohármosójában belépsz a fekete lyukba',n:'976 tárhely',ut:'„ADD.” A frekvencia: 10 976 kHz – ahány tárhely a raktárban van, és még egy tízes előtte. A jel egy pohármosó lefolyójából szól.'},
+  {id:'c3',f:4030,tip:'caesar',k:7,v:'FEL',kell:'eg:sziv',vilag:'Égtorony',hint:'az Égtoronyban legyőzöd a Szívet',n:'A torony teteje',ut:'„FEL.” A torony tetejéről, ahol a Szív megrepedt. Felfelé.'},
+  {id:'c4',f:8888,tip:'spektrum',v:'MEG',kell:'mo:csillag',vilag:'Mézország',hint:'Mézországban megépíted a Csillagméhest',n:'Méhzúgás',ut:'„MEG.” A csillagméhek szárnyának zúgása hordozza – ők repülnek a fekete lyuk felé.'},
+  {id:'c5',f:6371,tip:'morze',v:'ERI',kell:'me:kozep',vilag:'Mélység',hint:'a Mélységben eléred a Föld középpontját',n:'A Föld közepe',ut:'„ÉRI.” A frekvencia a Föld sugara: 6371. A jel a középpontból jön, ahol fény áramlik kifelé.'},
+  {id:'c6',f:1000,tip:'caesar',k:19,v:'TE MAGAD',kell:'eh:novikov',vilag:'Eseményhorizont',hint:'az Eseményhorizont tesszeraktjában bezárod az időhurkot',n:'A feladó',ut:'„TE MAGAD.” Az Eseményhorizont tesszeraktjából, ahol a múlt és a jövő egy helyen van. A feladó neve.'}]},
+ {id:'IV',n:'IV. Az üzenet',d:'Rakd össze a hat töredéket.',adas:[
+  {id:'d1',f:29999,tip:'vegso',v:'NE ADD FEL MEGERI',n:'Az egész',ut:''}]}];
+const MIND=FEJEZET.flatMap(f=>f.adas.map(a=>({...a,fej:f.id})));
+
+// ---- mentés ----
+const KEY='jeltoro:v1';
+let S={kesz:{},f:7000,akt:'a1',heti:null};
+try{const o=JSON.parse(localStorage.getItem(KEY));if(o&&o.kesz)S={...S,...o}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const nyitott=a=>{const fej=a.fej||(FEJEZET.find(f=>f.adas.some(x=>x.id===a.id))||{}).id,fi=FEJEZET.findIndex(f=>f.id===fej);if(fi<0)return true;if(fi===0)return true;const elozo=FEJEZET[fi-1];
+  if(fej==='IV')return FEJEZET[2].adas.every(x=>S.kesz[x.id]);return elozo.adas.every(x=>S.kesz[x.id])};
+const tiszta=a=>!a.kell||univ.has(a.kell);
+
+// ---- heti adás: mindenkinek ugyanaz (a hét kulcsából sorsolva), az idő számít ----
+// ---- Multiverzum-bajnokság: heti rangsor más játékosokkal ----
+// Egy nyilvános MQTT üzenetközvetítőn (HiveMQ, mint a Raktár 3D-ben és a Lőtér Űrversenyében) megy át a játékosok
+// neve és heti eredménye; saját szerver nincs. Témák (VS_CS/...):
+//   <játék>/<hét>/<azonosító>  – megőrzött heti eredmény: {id, nev, v:{...}, ts}
+//   jelen/<játék>/<azonosító>  – megőrzött jelenlét (a kapcsolat megszakadásakor a szerver törli)
+//   <játék>/e                  – élő hírek: {id, nev, t}
+// Hétfőn új hét, új rangsor; az előző hét győztese (ha legalább ketten versenyeztek) egyszeri jutalmat kap.
+const VS_BROKER='wss://broker.hivemq.com:8884/mqtt',VS_CS='multiverzum-bajnoksag-r4w8';
+function vsHet(d=new Date()){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())),n=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-n);
+  const e=t.getUTCFullYear();return e+'-W'+String(Math.ceil(((t-Date.UTC(e,0,1))/864e5+1)/7)).padStart(2,'0')}
+function inditVerseny({jatek,ertek,rendez,jutalom,valtozott}){
+  const id=(()=>{let i;try{i=localStorage.getItem('multiverzum-id')}catch(e){}if(!i){i=Math.random().toString(36).slice(2,10);try{localStorage.setItem('multiverzum-id',i)}catch(e){}}return i})();
+  const V={be:false,het:vsHet(),lap:{},elozo:{},jelen:{},hirek:[],k:null,kuld:'',uz:'Kapcsolódás…',id};
+  V.elozoHet=vsHet(new Date(Date.now()-7*864e5));
+  V.nev=()=>{try{return localStorage.getItem('multiverzum-nev')||''}catch(e){return ''}};
+  V.nevBe=n=>{n=String(n||'').trim().slice(0,24);try{localStorage.setItem('multiverzum-nev',n)}catch(e){}V.kuld='';V.kozol();jelenKuld()};
+  const tiszta=o=>o&&typeof o.id==='string'&&o.v&&typeof o.v==='object'?{id:o.id,nev:String(o.nev||'?').slice(0,24),v:o.v,ts:+o.ts||0}:null;
+  V.rangsor=(L=V.lap,sajat=true)=>{const l={...L};if(sajat){const v=ertek();if(v)l[id]={id,nev:V.nev()||'Névtelen',v,ts:Date.now()}}
+    return Object.values(l).filter(Boolean).map(x=>({...x,en:x.id===id})).filter(x=>x.en||Object.values(x.v).some(v=>+v>0)).sort((a,b)=>rendez(a.v,b.v))};
+  const jt=()=>VS_CS+'/jelen/'+jatek+'/'+id;
+  function jelenKuld(){if(V.be)V.k.publish(jt(),JSON.stringify({nev:V.nev()||'Névtelen'}),{qos:0,retain:true})}
+  V.kozol=()=>{if(!V.be||!V.nev())return;const v=ertek();if(!v)return;const s=JSON.stringify(v);if(s===V.kuld)return;V.kuld=s;
+    V.k.publish(VS_CS+'/'+jatek+'/'+V.het+'/'+id,JSON.stringify({id,nev:V.nev(),v,ts:Date.now()}),{qos:0,retain:true})};
+  V.hir=t=>{if(V.be&&V.nev())V.k.publish(VS_CS+'/'+jatek+'/e',JSON.stringify({id,nev:V.nev(),t:String(t).slice(0,140)}),{qos:0})};
+  V.fent=()=>Object.keys(V.jelen).length;
+  // az előző hét győztese: egyszer, ha mi voltunk az elsők (és nem egyedül)
+  let bajnokNezve=false;
+  function bajnokCsekk(){if(bajnokNezve)return;const R=V.rangsor(V.elozo,false);if(R.length<2||R[0].id!==id)return;bajnokNezve=true;
+    let n={};try{n=JSON.parse(localStorage.getItem('univerzum-naplo'))||{}}catch(e){}const k=jatek+':bajnok:'+V.elozoHet;if(n[k])return;
+    n[k]=Date.now();try{localStorage.setItem('univerzum-naplo',JSON.stringify(n))}catch(e){}jutalom(V.elozoHet,R.length)}
+  (async()=>{let mqtt;try{const mod=await import('./vendor/mqtt/mqtt.esm.js');mqtt=mod.default?.connect?mod.default:mod.default?.default??mod}catch(e){V.uz='A versenyhez nem sikerült betölteni a hálózati könyvtárat.';valtozott();return}
+    V.k=mqtt.connect(VS_BROKER,{clientId:jatek+'_'+id+'_'+Math.random().toString(36).slice(2,6),clean:true,keepalive:30,reconnectPeriod:5000,connectTimeout:10000,will:{topic:jt(),payload:'',qos:0,retain:true}});
+    V.k.on('connect',()=>{V.be=true;V.uz='';V.het=vsHet();V.k.subscribe(VS_CS+'/'+jatek+'/'+V.het+'/+');V.k.subscribe(VS_CS+'/'+jatek+'/'+V.elozoHet+'/+');
+      V.k.subscribe(VS_CS+'/jelen/'+jatek+'/+');V.k.subscribe(VS_CS+'/'+jatek+'/e');jelenKuld();V.kuld='';V.kozol();valtozott();setTimeout(bajnokCsekk,4000)});
+    V.k.on('close',()=>{if(V.be){V.be=false;V.uz='A kapcsolat megszakadt, újrapróbálom…';valtozott()}});
+    V.k.on('error',e=>console.warn('[verseny]',e?.message||e));
+    V.k.on('message',(tema,adat)=>{const r=tema.slice(VS_CS.length+1).split('/');let o=null;try{const s=adat.toString();o=s?JSON.parse(s):null}catch(e){return}
+      if(r[0]==='jelen'){if(r[2]===id)return;if(o)V.jelen[r[2]]=String(o.nev||'?').slice(0,24);else delete V.jelen[r[2]]}
+      else if(r[1]==='e'){if(!o||o.id===id)return;V.hirek.unshift({nev:String(o.nev||'?').slice(0,24),t:String(o.t||'').slice(0,140),ido:Date.now()});V.hirek.length=Math.min(V.hirek.length,6);valtozott(V.hirek[0]);return}
+      else if(r[1]===V.het||r[1]===V.elozoHet){if(r[2]===id&&r[1]===V.het)return;const L=r[1]===V.het?V.lap:V.elozo;const x=tiszta(o);if(x&&x.id===r[2])L[r[2]]=x;else delete L[r[2]]}
+      valtozott()})})();
+  return V}
+
+function rng(seed){let h=1779033703^seed.length;for(let i=0;i<seed.length;i++){h=Math.imul(h^seed.charCodeAt(i),3432918353);h=h<<13|h>>>19}
+  return()=>{h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);h^=h>>>16;return(h>>>0)/4294967296}}
+const SZAVAK=['ANTENNA','RADAR','ORBIT','SZONDA','KAPSZULA','HULLAM','ZAJ','JELADO','RACS','PORTA','EGBOLT','MELYSEG','KAPTAR','TORONY','RAKETA','HOLD','CSILLAG','MAG','KERING','VISSZHANG','KOD','FREKVENCIA','ADAS','VEVO'];
+function hetiAdasok(het){const r=rng('jeltoro-'+het),tipek=['morze','caesar','szam','spektrum','morze'],sz=[...SZAVAK];
+  return tipek.map((tip,i)=>{const jo=sz.filter(w=>tip!=='morze'||w.length<=5),v=jo[Math.floor(r()*jo.length)];sz.splice(sz.indexOf(v),1);return{id:'h'+i,f:Math.round(2000+r()*26000),tip,v,k:1+Math.floor(r()*24),n:'Heti adás '+(i+1)+'/5',ut:'',heti:true}})}
+let HETI=null;
+function hetiAllapot(){const h=vsHet();if(!S.heti||S.heti.het!==h){S.heti={het:h,start:0,kesz:{},t:0};save()}HETI=hetiAdasok(h);return S.heti}
+const VS=inditVerseny({jatek:'jt',ertek:()=>{const h=hetiAllapot();return h.t?{t:h.t}:null},rendez:(a,b)=>(+a.t||1e12)-(+b.t||1e12),
+  jutalom:(het,db)=>{univ.set('jt:mester');toast('🏆 A múlt heti adást te törted fel a leggyorsabban ('+db+' kezelő közül). Mesterlehallgató lettél!',7);render()},
+  valtozott:h=>{if(h&&h.t)toast('📻 '+h.nev+' '+h.t);if(ful==='heti'&&!(document.activeElement&&document.activeElement.tagName==='INPUT'))render()}});
+window.jeltoro={get S(){return S},VS,MIND,get akt(){return akt()},hangol:k=>hangol(k)}; // hibakereséshez
+
+// ---- hang: zaj és Morse-csipogás ----
+let AC=null,zajG=null,jelG=null,jelO=null,hangBe=true;
+function hangInit(){if(AC)return;try{AC=new(window.AudioContext||window.webkitAudioContext)();const b=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  const n=AC.createBufferSource();n.buffer=b;n.loop=true;const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=1400;f.Q.value=.6;zajG=AC.createGain();zajG.gain.value=0;n.connect(f).connect(zajG).connect(AC.destination);n.start();
+  jelO=AC.createOscillator();jelO.frequency.value=700;jelG=AC.createGain();jelG.gain.value=0;jelO.connect(jelG).connect(AC.destination);jelO.start()}catch(e){AC=null}}
+$('hangGomb').onclick=()=>{hangBe=!hangBe;$('hangGomb').textContent=hangBe?'🔊 hang':'🔇 néma';hangInit();if(AC)AC.resume()};
+document.addEventListener('pointerdown',()=>{hangInit();if(AC&&AC.state==='suspended')AC.resume()},{once:false});
+
+// ---- hangolás ----
+const akt=()=>MIND.find(a=>a.id===S.akt)||(HETI||[]).find(a=>a.id===S.akt)||MIND[0];
+function tures(a){return a.tip==='zajos'||(!tiszta(a)&&a.kell)?3:a.tip==='spektrum'?12:25}
+function erosseg(){const a=akt();const d=Math.abs(S.f-a.f),t=tures(a)*3;return Math.max(0,1-d/t)}
+function hangolva(){const a=akt();return Math.abs(S.f-a.f)<=tures(a)}
+function hangol(k){S.f=Math.max(1000,Math.min(30000,Math.round(k)));$('csuszka').value=S.f;save();frekKi()}
+function frekKi(){$('frek').innerHTML=fmtF(S.f)+'<small> MHz</small>';const e=erosseg();$('jelI').style.width=Math.round(e*100)+'%';
+  const h=hangolva();if(h!==frekKi.volt){frekKi.volt=h;dekodRajz()}}
+$('csuszka').addEventListener('input',e=>hangol(+e.target.value));
+// a vízesésre koppintva oda hangol (a kijelző ±60 kHz-et mutat)
+wfKop:{const w=document.getElementById('wf');w.addEventListener('click',e=>{const r=w.getBoundingClientRect();hangol(S.f+((e.clientX-r.left)/r.width-.5)*120)})}
+document.querySelectorAll('[data-df]').forEach(b=>b.onclick=()=>hangol(S.f+(+b.dataset.df)));
+
+// ---- vízesés-spektrum ----
+const wf=$('wf'),wx=wf.getContext('2d');const WW=wf.width,WH=wf.height;
+const txt=document.createElement('canvas');txt.width=120;txt.height=24;const tx=txt.getContext('2d');
+let txtSor=0,txtSzo='';
+function txtKeszit(s){tx.fillStyle='#000';tx.fillRect(0,0,120,24);tx.fillStyle='#fff';tx.font='bold 17px monospace';tx.textAlign='center';tx.textBaseline='middle';tx.fillText(s,60,12);txtSzo=s}
+let morzeT=0;
+function wfSor(){
+  const a=akt(),e=erosseg(),tisz=tiszta(a);
+  const img=wx.getImageData(0,0,WW,WH-1);wx.putImageData(img,0,1);
+  const sor=wx.createImageData(WW,1),d=sor.data;
+  // a kijelző a hangolt frekvencia körüli ±60 kHz-et mutatja; a jel helye: középtől a.f-S.f-re
+  const kozep=WW/2,px=kozep+(a.f-S.f)/120*WW;
+  const spekt=(a.tip==='spektrum'||a.tip==='zajos'||(!tisz&&a.kell))&&Math.abs(px-kozep)<WW/2;
+  if(spekt&&txtSzo!==a.v)txtKeszit(a.tip==='spektrum'||a.tip==='zajos'?a.v:(tisz?a.v:a.v));
+  const lat=Math.max(0,1-Math.abs(a.f-S.f)/60);
+  const ts=spekt?tx.getImageData(0,23-((txtSor++>>1)%30),120,1).data:null;
+  const zajSzint=(!tisz&&a.kell)?1.7:1;
+  for(let x=0;x<WW;x++){let v=Math.random()*55*zajSzint;
+    if(Math.abs(x-px)<3&&a.tip!=='spektrum'&&a.tip!=='zajos'&&(tisz||!a.kell)){v+=e*200*(morzeBe?1:.25)}
+    if(ts){const ix=Math.round(x-px+60);if(ix>=0&&ix<120&&ts[ix*4]>128)v+=(tisz?150:70)*lat}
+    v=Math.min(255,v);const i=x*4;d[i]=v*.35;d[i+1]=v;d[i+2]=v*.45;d[i+3]=255}
+  wx.putImageData(sor,0,0);
+  // a hangolt frekvencia jelölése
+  wx.fillStyle='#ffc75a55';wx.fillRect(kozep,0,1,WH);
+}
+// ---- Morse lejátszás ----
+let morzeBe=false,morzeSzalag='',morzeMenet=null;
+function morzeSor(s){const ev=[];const u=95;for(const w of s.split(' ')){for(const c of w){for(const m of (MORSE[c]||'')){ev.push([m==='.'?u:3*u,true,m]);ev.push([u,false])}ev.push([2*u,false,' '])}ev.push([4*u,false,'/'])}ev.push([1500,false,'|']);return ev}
+function morzeLep(dt){
+  const a=akt();if(a.tip!=='morze'||!hangolva()){morzeBe=false;morzeMenet=null;return}
+  if(!morzeMenet)morzeMenet={ev:morzeSor(a.v),i:0,t:0,szalag:''};const M=morzeMenet;M.t+=dt*1000;
+  while(M.t>=M.ev[M.i][0]){M.t-=M.ev[M.i][0];M.i++;if(M.i>=M.ev.length){M.i=0;M.szalag=''}
+    const e=M.ev[M.i];if(e[2]==='.'||e[2]==='-')M.szalag+=e[2]==='.'?'·':'−';else if(e[2]===' ')M.szalag+='  ';else if(e[2]==='/')M.szalag+=' / ';
+    const sz=$('szalag');if(sz)sz.textContent=M.szalag||'…'}
+  morzeBe=M.ev[M.i][1];
+}
+
+// ---- dekóder (a hangolt adás típusa szerint) ----
+let caesarK=0;
+function dekodRajz(){
+  const el=$('dekod'),a=akt(),kesz=a.heti?S.heti?.kesz[a.id]:S.kesz[a.id];
+  if(!hangolva()){el.innerHTML='<div class="dekod dim kicsi">'+(a?'Keresett adás: <b style="color:var(--amb)">'+esc(a.n)+'</b> – '+fmtF(a.f)+' MHz körül. Hangolj rá a csúszkával és a finomhangolóval; a jelerősség-sáv és a vízesés mutatja, merre van.':'')+'</div>';return}
+  let h='<div class="dekod">';
+  if(kesz&&a.tip!=='vegso'){h+='<p><b style="color:var(--ph)">✓ Feltörve:</b> <span class="cipher" style="font-size:16px">'+esc(a.v)+'</span></p>'+(a.ut?'<p class="kicsi">'+a.ut+'</p>':'')+'</div>';el.innerHTML=h;return}
+  const tisz=tiszta(a);
+  if(a.kell&&!tisz)h+='<p class="kicsi" style="color:var(--amb)">Ez az adás a(z) <b>'+a.vilag+'</b> világából jön, és itt csak zajként fogható. Tisztán akkor szól, ha '+a.hint+'. Addig is kiszűrheted: a szöveg halványan látszik a vízesésben – hangolj nagyon pontosan.</p>';
+  const tip=(a.kell&&!tisz)?'zajos':a.tip;
+  if(tip==='morze'){h+='<p class="kicsi dim">Morse-adás. Hallgasd (vagy nézd a szalagot), és írd be a szót. A rövid jel a pont, a hosszú a vonás; a betűk közt rövid szünet.</p><div class="szalag" id="szalag">…</div>'
+    +'<details><summary class="kicsi dim">Morse-táblázat</summary><div class="tabla">'+Object.entries(MORSE).map(([k,v])=>'<span><b>'+k+'</b> '+v.replace(/\./g,'·').replace(/-/g,'−')+'</span>').join('')+'</div></details>'}
+  else if(tip==='caesar'){const ct=caesar(a.v,a.k);h+='<p class="kicsi dim">Eltolt ábécé. Forgasd a tárcsát, amíg értelmes szöveget nem kapsz.</p><div class="cipher" id="cip">'+esc(caesar(ct,-caesarK))+'</div><div class="tarcsa"><button id="cm">−</button><span class="chip" id="ck">eltolás: '+caesarK+'</span><button id="cp">+</button></div>'}
+  else if(tip==='szam'){h+='<p class="kicsi dim">Számállomás. A kódkönyv: A = 01, B = 02 … Z = 26; a perjel szóköz.</p><div class="cipher">'+szamkod(a.v)+'</div><div class="tabla">'+ABC.split('').map((c,i)=>'<span><b>'+c+'</b> '+String(i+1).padStart(2,'0')+'</span>').join('')+'</div>'}
+  else if(tip==='spektrum'||tip==='zajos'){h+='<p class="kicsi dim">Ez az adás nem szól: kép. Nézd a vízesést – a szöveg lassan rajzolódik ki a zajban.</p>'}
+  else if(tip==='vegso'){const tor=FEJEZET[2].adas.map(x=>'<span class="chip" style="color:var(--ph)">'+(x.v==='ERI'?'ÉRI':x.v)+'</span>').join(' ');h+='<p class="kicsi">A hat töredék: '+tor+'</p><p class="kicsi dim">Rakd össze az üzenetet (a feladó nélkül), és küldd vissza a múltba.</p>'}
+  if(tip!=='caesar')h+='<div class="valasz"><input id="val" autocomplete="off" autocapitalize="characters" placeholder="megfejtés"><button id="ok">Feltörés</button></div>';
+  h+='</div>';el.innerHTML=h;
+  if(tip==='caesar'){const kiir=()=>{$('cip').textContent=caesar(caesar(a.v,a.k),-caesarK);$('ck').textContent='eltolás: '+caesarK;if(caesar(caesar(a.v,a.k),-caesarK)===a.v)setTimeout(()=>megfejt(a),350)};
+    $('cm').onclick=()=>{caesarK=(caesarK+25)%26;kiir()};$('cp').onclick=()=>{caesarK=(caesarK+1)%26;kiir()}}
+  else{const be=()=>{const v=norm($('val').value);if(v===norm(a.v))megfejt(a);else{$('val').style.borderColor='var(--bad)';setTimeout(()=>{const x=$('val');if(x)x.style.borderColor=''},700)}};
+    $('ok').onclick=be;$('val').addEventListener('keydown',e=>{if(e.key==='Enter')be()})}
+}
+function megfejt(a){
+  caesarK=0;
+  if(a.heti){const h=S.heti;if(h.kesz[a.id])return;h.kesz[a.id]=Date.now();if(!h.start)h.start=h.kesz[a.id];
+    if(HETI.every(x=>h.kesz[x.id])&&!h.t){h.t=Date.now()-h.start;toast('📻 A heti adás feltörve: '+ido(h.t)+'!');VS.kozol();VS.hir('feltörte a heti adást: '+ido(h.t)+'.')}else toast('✓ '+a.n);
+    save();const kov=HETI.find(x=>!h.kesz[x.id]);if(kov){S.akt=kov.id;save()}render();return}
+  if(S.kesz[a.id])return;S.kesz[a.id]=Date.now();univ.set('jt:elso');save();
+  toast('✓ Feltörve: '+a.n);
+  if(FEJEZET[1].adas.every(x=>S.kesz[x.id])&&univ.set('jt:1957'))VS.hir('megfejtette a furcsa jelet.');
+  if(a.tip==='vegso'){univ.set('jt:jel');VS.hir('összerakta az üzenetet a jövőből.')}
+  const kov=MIND.find(x=>!S.kesz[x.id]&&nyitott(x));if(kov&&a.tip!=='vegso')S.akt=kov.id;save();render();
+}
+
+// ---- lapok ----
+let ful='adas';
+function render(){
+  hetiAllapot();
+  $('tabs').innerHTML=[['adas','Adások'],['heti','Heti adás'],['napl','Napló'],['vilag','Más világok']].map(([k,n])=>'<button data-t="'+k+'" aria-pressed="'+(ful===k)+'">'+n+'</button>').join('');
+  document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{ful=b.dataset.t;if(ful==='heti'&&HETI){const kov=HETI.find(x=>!S.heti.kesz[x.id]);if(kov)S.akt=kov.id}else if(ful==='adas'&&akt().heti){const kov=MIND.find(x=>!S.kesz[x.id]&&nyitott(x));S.akt=(kov||MIND[0]).id}save();render()});
+  let h='';
+  if(ful==='adas'){
+    if(S.kesz.d1)h+='<section class="card" style="border-color:var(--ph)"><div class="eyebrow dim kicsi">AZ ÜZENET</div><div class="vegso">NE ADD FEL,<br>MEGÉRI.</div><p style="text-align:center">— te magad</p><p class="kicsi">A kezelő leteszi a fejhallgatót. Az üzenet sosem a jövőből jött, és sosem a múltba ment: mindig is itt volt, egy hurokban, amely minden világon átfut – a lőtéren, a raktárban, a tornyon, a méhesben, a Föld közepén és a fekete lyuk mögött. Aki elküldi, az kapja meg. Aki megkapja, az küldi el.</p><a class="kapu" href="../Esemenyhorizont/?from=jeltoro">Az Eseményhorizontba ↗</a></section>';
+    for(const F of FEJEZET){const ny=nyitott(F.adas[0]),db=F.adas.filter(x=>S.kesz[x.id]).length;
+      h+='<section class="card'+(ny?'':' zar')+'"><div class="row"><h2>'+F.n+'</h2><span class="chip">'+db+'/'+F.adas.length+'</span></div><p class="dim kicsi">'+(ny?F.d:'Zárva: előbb az előző fejezet adásait törd fel.')+'</p>';
+      if(ny)h+='<div class="lista">'+F.adas.map(a=>'<button class="adas'+(a.kell&&!tiszta(a)?' zar':'')+'" data-a="'+a.id+'" aria-current="'+(S.akt===a.id)+'"><b>'+fmtF(a.f)+'</b><span class="t">'+esc(a.n)+(a.vilag?' <span class="dim kicsi">· '+a.vilag+(tiszta(a)?'':' (zajos)')+'</span>':'')+'</span><span class="st" style="color:'+(S.kesz[a.id]?'var(--ph)':'var(--dim)')+'">'+(S.kesz[a.id]?'✓':'·')+'</span></button>').join('')+'</div>';
+      h+='</section>'}}
+  else if(ful==='heti'){const st=S.heti,R=VS.rangsor(),hely=R.findIndex(x=>x.en)+1;
+    h+='<section class="card" style="border-color:var(--amb)"><div class="row"><h2>Heti adás · '+st.het+'</h2><span class="chip">'+(VS.be?(VS.fent()+1)+' fent':'nincs kapcsolat')+'</span></div><p class="dim kicsi">Öt adás, mindenkinek ugyanaz a héten. Az óra az első feltöréskor indul, és az ötödiknél áll meg. Hétfőn új adás; a múlt heti leggyorsabb kezelő Mesterlehallgató lesz.'+(VS.uz?' '+VS.uz:'')+'</p>';
+    h+='<div class="lista">'+HETI.map(a=>'<button class="adas" data-a="'+a.id+'" aria-current="'+(S.akt===a.id)+'"><b>'+fmtF(a.f)+'</b><span class="t">'+a.n+' <span class="dim kicsi">· '+{morze:'Morse',caesar:'eltolt ábécé',szam:'számállomás',spektrum:'kép a zajban'}[a.tip]+'</span></span><span class="st" style="color:'+(st.kesz[a.id]?'var(--ph)':'var(--dim)')+'">'+(st.kesz[a.id]?'✓':'·')+'</span></button>').join('')+'</div>';
+    h+='<p class="osszeg" style="font:700 15px var(--m);margin-top:10px">'+(st.t?'Az időd: <span style="color:var(--ph)">'+ido(st.t)+'</span>':st.start?'Fut az óra: '+ido(Date.now()-st.start):'Az óra még nem indult.')+'</p>';
+    if(!VS.nev())h+='<div class="valasz"><input id="vsNev" maxlength="24" placeholder="A kezelő neve" style="text-transform:none"><button id="vsOk">Beszállok</button></div>';
+    h+=R.length?'<table class="vtab"><tr><th>#</th><th>Kezelő</th><th class="sz">Idő</th></tr>'+R.slice(0,10).map((x,i)=>'<tr class="'+(x.en?'en':'')+'"><td>'+(i+1)+'</td><td>'+esc(x.nev)+(x.en?' (te)':'')+(VS.jelen[x.id]&&!x.en?'<span class="fent">fent</span>':'')+'</td><td class="sz">'+ido(+x.v.t||0)+'</td></tr>').join('')+'</table>':'<p class="dim kicsi">Ezen a héten még senki sem törte fel az adást.</p>';
+    if(hely&&R.length>1)h+='<p class="kicsi">Most a <b>'+hely+'.</b> vagy '+R.length+' kezelő közül.</p>';
+    if(VS.hirek.length)h+='<div class="napl kicsi">'+VS.hirek.slice(0,4).map(x=>'<div>'+esc(x.nev)+' '+esc(x.t)+'</div>').join('')+'</div>';
+    h+='<p class="dim kicsi">A név és a heti idő egy nyilvános üzenetközvetítőn (HiveMQ) megy át a többi játékoshoz; más adat nem.</p></section>'}
+  else if(ful==='napl'){const k=MIND.filter(a=>S.kesz[a.id]&&a.ut);
+    h+='<section class="card"><h2>A kezelő naplója</h2><div class="napl">'+(k.length?k.map(a=>'<div><b>'+esc(a.n)+'</b> · '+fmtF(a.f)+' MHz<br><span class="kicsi">'+a.ut+'</span></div>').join(''):'<p class="dim">Még üres. Minden feltört adás ide kerül.</p>')+'</div></section>'}
+  else{const n=univ.get();const V=[['eh:jart','Eseményhorizont','../Esemenyhorizont/?from=jeltoro'],['lo:jart','Kísérleti Lőtér','../Kiserleti_robbantas/'],['r3:jart','Raktár 3D','../raktar-3d/'],['eg:jart','Égtorony','../Egtorony/'],['mo:jart','Mézország','../Mezorszag/'],['me:jart','Mélység','../Melyseg/'],['tt:jart','Toldaléktorony','../Toldalektorony/']];
+    h+='<section class="card" style="border-color:#9b7bff"><h2>Más világok</h2><p class="kicsi dim">A III. fejezet hat adása hat világból jön. Ahol jártál, ott a jel tisztán szól.</p>'
+      +FEJEZET[2].adas.map(a=>'<p class="kicsi">'+(tiszta(a)?'<b style="color:var(--ph)">● '+a.vilag+'</b> – tisztán fogható':'<b class="dim">○ '+a.vilag+'</b> – zajos; tisztán akkor szól, ha '+a.hint)+'</p>').join('')
+      +V.filter(v=>n[v[0]]||v[0]==='eh:jart'&&S.kesz.d1).map(v=>'<a class="kapu" href="'+v[2]+'">'+v[1]+' ↗</a>').join('')+'</section>'}
+  $('lap').innerHTML=h;
+  document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{S.akt=b.dataset.a;caesarK=0;morzeMenet=null;save();frekKi.volt=null;frekKi();render();window.scrollTo({top:0,behavior:'smooth'})});
+  const ok=$('vsOk');if(ok)ok.onclick=()=>{const v=$('vsNev').value.trim();if(v){VS.nevBe(v);render()}};
+  frekKi.volt=null;frekKi();
+}
+let toastT=null;function toast(t,mp=3.2){const e=$('toast');e.textContent=t;e.style.opacity=1;clearTimeout(toastT);toastT=setTimeout(()=>e.style.opacity=0,mp*1000)}
+
+// ---- ciklus ----
+let last=performance.now(),wfAcc=0;
+function ciklus(now){const dt=Math.min(.1,(now-last)/1000);last=now;morzeLep(dt);wfAcc+=dt;while(wfAcc>1/30){wfAcc-=1/30;wfSor()}
+  if(AC&&hangBe){const e=erosseg(),a=akt(),t=AC.currentTime;zajG.gain.setTargetAtTime(.05*(1-e*.7),t,.05);jelG.gain.setTargetAtTime(morzeBe&&a.tip==='morze'?.12*e:0,t,.008)}
+  else if(AC){zajG.gain.value=0;jelG.gain.value=0}
+  if(ful==='heti'&&S.heti&&S.heti.start&&!S.heti.t&&Math.floor(now/1000)!==ciklus.mp){ciklus.mp=Math.floor(now/1000);const o=document.querySelector('.osszeg');if(o)o.textContent='Fut az óra: '+ido(Date.now()-S.heti.start)}
+  requestAnimationFrame(ciklus)}
+hetiAllapot();if(!S.akt||!akt())S.akt='a1';$('csuszka').value=S.f;render();requestAnimationFrame(ciklus);
+document.addEventListener('visibilitychange',()=>{if(document.hidden){save();if(AC)AC.suspend()}});
+})();
+</script>
+</body>
+</html>
